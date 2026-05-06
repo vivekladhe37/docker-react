@@ -1,0 +1,34 @@
+version: '3'
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    ports:
+      - "3000:3000"
+    volumes:
+      - /app/node_modules
+      - .:/app
+    environment:
+      CHOKIDAR_USEPOLLING: "true"
+      WATCHPACK_POLLING: "true"
+      HOST: "0.0.0.0"
+      WDS_SOCKET_HOST: "localhost"
+
+  tests:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    volumes:
+      - /app/node_modules
+      - .:/app
+    # force interactive watch mode and polling
+    stdin_open: true
+    tty: true
+    environment:
+      CHOKIDAR_USEPOLLING: "true"
+      WATCHPACK_POLLING: "true"
+      HOST: "0.0.0.0"
+      WDS_SOCKET_HOST: "localhost"
+    command: sh -c "npm test -- --watchAll"
+  
