@@ -1,70 +1,102 @@
-# Getting Started with Create React App
+# React Docker Production-Grade Workflow
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Overview
+This project is a production-ready React application, containerized with Docker and orchestrated using Docker Compose. It follows best practices for modern web development, including multi-stage builds, hot-reload for development, and Nginx for production. The project was built as part of the "Docker and Kubernetes: The Complete Guide" Udemy course (Section 6), and demonstrates hands-on skills in Docker, CI/CD, and React.
 
-## Available Scripts
+## Features
+- React 18 application (Create React App)
+- Dockerized development and production workflows
+- Multi-stage Docker builds for optimized images
+- Hot-reloading in development with Docker Compose
+- Nginx serving static files in production
+- Automated testing with Jest and React Testing Library
+- Travis CI configuration for continuous integration
+- Git version control
 
-In the project directory, you can run:
+## Technologies Used
+- React 18
+- Docker & Docker Compose
+- Nginx
+- Travis CI
+- Node.js (16-alpine)
+- Jest, React Testing Library
 
-### `npm start`
+## Getting Started
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Prerequisites
+- Docker & Docker Compose installed
+- Node.js and npm (for local development)
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Local Development (without Docker)
+```bash
+npm install
+npm start
+```
+App runs on [http://localhost:3000](http://localhost:3000)
 
-### `npm test`
+### Development with Docker
+```bash
+docker-compose up
+```
+- Hot-reload enabled
+- Code changes reflected instantly
+- Volumes used for node_modules and source code
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Production Build with Docker
+```bash
+docker build -t react-prod .
+docker run -p 80:80 react-prod
+```
+- Multi-stage build: Node.js for build, Nginx for serving static files
+- App available at [http://localhost](http://localhost)
 
-### `npm run build`
+### Running Tests
+```bash
+npm test
+```
+Or with Docker Compose:
+```bash
+docker-compose run --rm tests
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Continuous Integration
+- Travis CI is configured to run tests and builds on every push
+- See `.travis.yml` for pipeline details
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Folder Structure
+```
+frontend/
+├── build/                # Production build output
+│   └── static/           # Compiled JS, CSS, media
+├── public/               # Static public assets
+├── src/                  # React source code
+├── Dockerfile            # Multi-stage production build
+├── Dockerfile.dev        # Development Dockerfile
+├── docker-compose.yml    # Compose for dev & tests
+├── .travis.yml           # Travis CI config
+├── package.json          # NPM scripts & dependencies
+└── README.md             # Project documentation
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Key Learning Highlights
+- Multi-stage Docker builds for small, secure images
+- Hot-reload setup with Docker volumes
+- Nginx as a static file server for React
+- Docker Compose for orchestrating dev and test environments
+- Automated testing and CI/CD integration
+- Git for version control and collaboration
 
-### `npm run eject`
+## How This Project Showcases My Skills
+- End-to-end workflow: local dev, Docker, CI/CD, production
+- Deep understanding of Docker best practices
+- Real-world React app structure and deployment
+- Automated testing and continuous integration
+- Clear, maintainable documentation
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+---
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+> Built as part of "Docker and Kubernetes: The Complete Guide" (Udemy, Section 6)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+---
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Feel free to reach out for more details or a walkthrough of the code and workflow!
